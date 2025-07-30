@@ -1,139 +1,52 @@
-// IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL = "https://demo.once-ui.com";
+// once-ui.config.ts
 
-// Import and set font for each variant
-import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+import { person, social, newsletter, home, about, blog, work, gallery } from "./content";
 
-const heading = Geist({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
+// --- CORE CONFIGURATION ---
+export const routes = { "/": true, "/about": true, "/blog": true, "/work": true, "/gallery": false };
+export const protectedRoutes = {};
+export const display = { hireMeButton: true };
+export const mailchimp = { /* Your mailchimp settings */ };
 
-const body = Geist({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const label = Geist({
-  variable: "--font-label",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const code = Geist_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const fonts = {
-  heading: heading,
-  body: body,
-  label: label,
-  code: code,
+// --- BRANDING & STYLE ---
+export const baseURL = "https://example.com";
+export const fonts = { 
+    heading: { name: "Inter", variable: "--font-heading" },
+    body: { name: "Inter", variable: "--font-body" },
+    label: { name: "Inter", variable: "--font-label" },
+    code: { name: "JetBrains Mono", variable: "--font-code" },
 };
 
-// default customization applied to the HTML in the main layout.tsx
-const style = {
-  theme: "system", // dark | light | system
-  neutral: "gray", // sand | gray | slate
-  brand: "blue", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  accent: "indigo", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  solid: "contrast", // color | contrast | inverse
-  solidStyle: "flat", // flat | plastic
-  border: "playful", // rounded | playful | conservative
-  surface: "filled", // filled | translucent
-  transition: "all", // all | micro | macro
-  scaling: "100", // 90 | 95 | 100 | 105 | 110
+// ** THEME CONFIGURATION **
+export const style = {
+  brand: "neutral",
+  accent: "neutral",
+  neutral: "neutral",
+  solid: "neutral-1200",
+  solidStyle: "flat",
+  border: "thin",
+  surface: "flat",
+  transition: "fast",
+  scaling: "102",
 };
 
-const dataStyle = {
-  variant: "gradient", // flat | gradient | outline
-  mode: "categorical", // categorical | divergent | sequential
-  height: 24, // default chart height
-  axis: {
-    stroke: "var(--neutral-alpha-weak)",
-  },
-  tick: {
-    fill: "var(--neutral-on-background-weak)",
-    fontSize: 11,
-    line: false
-  },
+// ** DATA VIZ CONFIG **
+export const dataStyle = {
+  variant: "monochrome",
 };
 
-const effects = {
-  mask: {
-    cursor: false,
-    x: 50,
-    y: 0,
-    radius: 100,
-  },
-  gradient: {
-    display: false,
-    x: 50,
-    y: 0,
-    width: 100,
-    height: 100,
-    tilt: 0,
-    colorStart: "brand-background-strong",
-    colorEnd: "static-transparent",
-    opacity: 50,
-  },
-  dots: {
-    display: true,
-    size: "2",
-    color: "brand-on-background-weak",
-    opacity: 40,
-  },
-  lines: {
-    display: false,
-    color: "neutral-alpha-weak",
-    opacity: 100,
-    thickness: 1,
-    angle: 45,
-    size: "8",
-  },
-  grid: {
-    display: false,
-    color: "neutral-alpha-weak",
-    opacity: 100,
-    width: "2",
-    height: "2",
-  },
+// ** VISUAL EFFECTS **
+export const effects = {
+  mask: { display: true, x: "mouse", y: "mouse", radius: "xl", cursor: "default", opacity: "05", color: "neutral-800" },
+  gradient: { display: false },
+  dots: { display: false },
+  grid: { display: false },
+  lines: { display: false },
 };
 
-// metadata for pages
-const meta = {
-  home: {
-    path: "/",
-    title: "Once UI for Next.js",
-    description:
-      "An open-source design system and component library for Next.js that emphasizes easy styling and accessibility in UI development.",
-    image: "/images/og/home.jpg",
-    canonical: "https://once-ui.com",
-    robots: "index,follow",
-    alternates: [{ href: "https://once-ui.com", hrefLang: "en" }],
-  },
-  // add more routes and reference them in page.tsx
-};
+// --- SCHEMA & METADATA ---
+export const schema = { type: "person", name: person.name, url: baseURL, image: `${baseURL}${person.avatar}` };
+export const sameAs = social.map((s) => s.link);
 
-// default schema data
-const schema = {
-  logo: "",
-  type: "Organization",
-  name: "Once UI",
-  description: meta.home.description,
-  email: "lorant@once-ui.com",
-};
-
-// social links
-const social = {
-  twitter: "https://www.twitter.com/_onceui",
-  linkedin: "https://www.linkedin.com/company/once-ui/",
-  discord: "https://discord.com/invite/5EyAQ4eNdS",
-};
-
-export { baseURL, fonts, style, meta, schema, social, effects, dataStyle };
+// Re-export all content and config
+export { person, social, newsletter, home, about, blog, work, gallery };
